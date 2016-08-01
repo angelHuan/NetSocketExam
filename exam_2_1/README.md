@@ -1,0 +1,1 @@
+mvn clean compile exec:java -Dexec.mainClass="com.hand.exam_2_1.App" -Dexec.args="arg0 arg1 arg2"
