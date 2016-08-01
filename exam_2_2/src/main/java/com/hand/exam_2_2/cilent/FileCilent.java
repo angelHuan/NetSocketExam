@@ -1,52 +1,50 @@
 package com.hand.exam_2_2.cilent;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.URL;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
 public class FileCilent {
 	public static void main(String[] args) {
-		HttpClient client = HttpClients.createDefault();
-		HttpGet get = new HttpGet("http://files.saas.hand-china.com/java/target.pdf");
+		/*HttpClient client = HttpClients.createDefault();
+		HttpGet get = new HttpGet("http://localhost:12345");*/
 
 		try {
-			HttpResponse response = client.execute(get);
+			/*HttpResponse response = client.execute(get);
 			HttpEntity entity = response.getEntity();
 			String res = EntityUtils.toString(entity,"utf-8");
 			//byte[] array = EntityUtils.toByteArray(entity);
 			//下载到本地
 			FileOutputStream fos = new FileOutputStream("target2.pdf");
 			OutputStreamWriter osw = new OutputStreamWriter(fos,"utf-8");
-			char[] charArray = res.toCharArray();
-			//osw.write(res.getBytes());
-			osw.write(charArray);
+			//char[] charArray = res.toCharArray();
+			osw.write(res);
+			//osw.write(charArray);
 			osw.flush();
 			osw.close();
-			fos.close();
-
-			/*URL url = new URL("http://localhost:12345");
-			InputStream is = url.openStream();
-			byte[] b = new byte[1024*1024];
+			fos.close();*/
+			
+			Socket socket = new Socket("127.0.0.1", 12345);
+			//BufferedReader sin=new BufferedReader(new InputStreamReader(System.in));
+			//URL url = new URL("http://localhost:12345");
+			//InputStream is = socket.getInputStream();
+			BufferedReader is=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			byte[] b = new byte[1024*1024*1024];
 			int len;
-			String fileName = "target2.pdf";
-			OutputStream bos = new FileOutputStream(new File(fileName));
-			while ((len = is.read(b)) != -1) {
-				bos.write(b, 0, len);
-			}
+			OutputStream bos = new FileOutputStream("target2.pdf");
+			bos.write(is.read());
 			bos.flush();
 			bos.close();
-			is.close();*/   
+			is.close();   
 
 
 
@@ -62,7 +60,7 @@ public class FileCilent {
 			br.close();
 			isr.close();
 			fis.close();
-
+			socket.close();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

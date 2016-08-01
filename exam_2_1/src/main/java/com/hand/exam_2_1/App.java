@@ -42,7 +42,7 @@ public class App {
 
 			URL url = new URL("http://files.saas.hand-china.com/java/target.pdf");
 			InputStream is = url.openStream();
-			byte[] b = new byte[1024*1024];
+			byte[] b = new byte[1024*1024*1024];
 			int len;
 			String fileName = "target.pdf";
 			OutputStream bos = new FileOutputStream(new File(fileName));
@@ -61,6 +61,7 @@ public class App {
 			BufferedReader br = new BufferedReader(isr);
 
 			String line = null;
+			System.out.println("读取到的pdf文件为乱码!!!");
 			while((line = br.readLine()) != null){
 				System.out.println(line);
 			}
