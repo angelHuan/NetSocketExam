@@ -20,7 +20,7 @@ public class FileToCilent2 extends Thread{
 	public void run() {
 		
 		try {
-			FileInputStream fis = new FileInputStream("target.pdf");
+			/*FileInputStream fis = new FileInputStream("target.pdf");
 			InputStreamReader isr = new InputStreamReader(fis);
 			BufferedReader br = new BufferedReader(isr);
 			
@@ -37,7 +37,13 @@ public class FileToCilent2 extends Thread{
 			br.close();
 			isr.close();
 			fis.close();
-			
+			*/
+			FileInputStream fis = new FileInputStream("target.pdf");
+			byte[] b = new byte[1024*1024];
+			//int len = 0;
+			fis.read(b);
+			socket.getOutputStream().write(b);
+			fis.close();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

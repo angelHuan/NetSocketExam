@@ -5,7 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
@@ -16,7 +18,7 @@ public class FileCilent {
 	
 		
 		try{
-			Socket socket = new Socket("127.0.0.1", 12345);
+			/*Socket socket = new Socket("127.0.0.1", 12345);
 			BufferedReader buf =  new BufferedReader(new InputStreamReader(socket.getInputStream()));  
 			
 			FileOutputStream fos = new FileOutputStream("target2.pdf");
@@ -33,10 +35,22 @@ public class FileCilent {
 			bw.close();
 			osw.close();
 			fos.close();
-            buf.close();
+            buf.close();*/
+			
+			
+			Socket socket = new Socket("127.0.0.1", 12345);
+			InputStream is = socket.getInputStream();
             
-            
-            
+			FileOutputStream fos = new FileOutputStream("target2.pdf");
+			
+			
+			byte[] b = new byte[1024*1024];
+			
+			is.read(b);
+			fos.write(b);
+			
+			fos.close();
+			is.close();
             
             
             System.out.println("aaaaa");
